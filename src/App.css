@@ -1,0 +1,146 @@
+.board {
+  min-height: 100dvh;
+  padding: clamp(20px, 5vw, 48px) clamp(16px, 5vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 4vh, 40px);
+}
+
+.board.open,
+.board.closed {
+  /* Matches the flat black the logo artwork sits on. */
+  background: var(--bg);
+}
+
+header {
+  display: flex;
+  justify-content: center;
+}
+
+/* Deliberately small - the trading hours are what you read from a distance. */
+.logo {
+  height: clamp(64px, 16vw, 104px);
+  width: auto;
+}
+
+.status {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.open .badge {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.closed .badge {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+.clock {
+  font-size: clamp(2rem, 9vw, 3rem);
+  font-weight: 200;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  margin: 10px 0 4px;
+}
+
+.next {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+}
+
+.week {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: min(640px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 3vh, 26px);
+}
+
+.week li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: clamp(14px, 3vh, 22px) 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.week .today {
+  border-color: rgba(201, 146, 47, 0.45);
+  background: rgba(201, 146, 47, 0.07);
+}
+
+.day {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: clamp(0.8rem, 3.2vw, 1rem);
+}
+
+.today .day {
+  color: var(--gold);
+}
+
+.times {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.shift {
+  font-size: clamp(1.9rem, 8.5vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.today .shift {
+  color: var(--gold);
+}
+
+footer {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.awake {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.wake-active {
+  color: #34d399;
+}
+
+.wake-denied,
+.wake-unsupported {
+  color: #fbbf24;
+}
