@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { venue } from "./hours";
 import { formatShift, formatUntil, getStatus, groupDays } from "./schedule";
+import { useFullscreen } from "./useFullscreen";
 import { useWakeLock } from "./useWakeLock";
 import "./App.css";
 
@@ -8,6 +9,7 @@ export default function App() {
   const [now, setNow] = useState(() => new Date());
   const [keepAwake, setKeepAwake] = useState(true);
   const wakeLock = useWakeLock(keepAwake);
+  const fullscreen = useFullscreen();
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 1000);
@@ -23,6 +25,24 @@ export default function App() {
     <main className={status.open ? "board open" : "board closed"}>
       <header>
         <img className="logo" src={venue.logo} alt={venue.name} />
+        {fullscreen.supported && !fullscreen.standalone && (
+          <button
+            type="button"
+            className="fullscreen"
+            onClick={fullscreen.toggle}
+            aria-label={fullscreen.active ? "Exit full screen" : "Full screen"}
+          >
+            {fullscreen.active ? (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 3v6H3M15 3v6h6M9 21v-6H3M15 21v-6h6" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6" />
+              </svg>
+            )}
+          </button>
+        )}
       </header>
 
       <section className="status">
@@ -74,6 +94,9 @@ export default function App() {
           />
           Keep screen on
         </label>
+        {!fullscreen.supported && !fullscreen.standalone && (
+          <span className="hint">Add to Home Screen for full screen</span>
+        )}
         <span className={`wake wake-${wakeLock}`}>
           {
             {

@@ -32,6 +32,14 @@ required for the keep-awake feature.
    Home screen) and launch it from there so it runs full screen without the
    browser chrome.
 
+### Full screen
+
+A button in the top right corner toggles full screen via the Fullscreen API.
+iPhone Safari does not implement that API at all (only for video), so on an
+iPhone the button is hidden and the footer suggests Add to Home Screen instead,
+which is the only way to lose the browser chrome there. The button also hides
+itself once the page is already running from the home screen.
+
 ### Keeping the screen on
 
 The app holds a Screen Wake Lock while the "Keep screen on" box is ticked, so

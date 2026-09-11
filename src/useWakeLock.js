@@ -14,13 +14,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
  */
 export function useWakeLock(enabled = true) {
   const sentinel = useRef(null);
-  const [state, setState] = useState("idle"); // idle | active | unsupported | denied
+  // idle | active | unsupported | denied
+  const [state, setState] = useState(() =>
+    typeof navigator !== "undefined" && "wakeLock" in navigator ? "idle" : "unsupported"
+  );
 
   const request = useCallback(async () => {
-    if (!("wakeLock" in navigator)) {
-      setState("unsupported");
-      return;
-    }
+    if (!("wakeLock" in navigator)) return;
     if (sentinel.current || document.visibilityState !== "visible") return;
     try {
       sentinel.current = await navigator.wakeLock.request("screen");
@@ -42,6 +42,9 @@ export function useWakeLock(enabled = true) {
       return;
     }
 
+    // Acquiring an OS-level wake lock is exactly the external-system sync an
+    // effect is for; the state update happens after the await, not synchronously.
+    // oxlint-disable-next-line react/set-state-in-effect
     request();
 
     const onVisibility = () => {

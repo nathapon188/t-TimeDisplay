@@ -15,6 +15,41 @@
 header {
   display: flex;
   justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Big enough to hit with a thumb without competing with the hours. */
+.fullscreen {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fullscreen:active {
+  background: rgba(201, 146, 47, 0.18);
+  color: var(--gold);
+}
+
+.fullscreen svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Deliberately small - the trading hours are what you read from a distance. */
@@ -134,6 +169,10 @@ footer {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+}
+
+.hint {
+  color: var(--gold);
 }
 
 .wake-active {
