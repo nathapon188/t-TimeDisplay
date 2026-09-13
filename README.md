@@ -14,6 +14,17 @@ Consecutive days with identical hours are collapsed into one row automatically,
 so Mon-Fri shows as a single `Mon - Fri` block. Give a day different hours and it
 splits out on its own.
 
+## Fonts
+
+Times are set in DSEG7 Classic, a seven-segment LCD face by keshikan, self
+hosted from `public/fonts` (about 5 KB per weight). It is under the SIL Open
+Font License 1.1, so it is fine on a commercial sign; the licence ships in
+`public/fonts/LICENSE.txt`.
+
+Only the numerals use it. Seven-segment letterforms are close to unreadable, so
+am/pm and the day names stay in the UI font. If you want a different face, the
+`.digits` rule in `src/App.css` is the only place to change.
+
 ## Run it
 
     npm install

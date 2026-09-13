@@ -1,3 +1,20 @@
+@font-face {
+  /* DSEG7 Classic by keshikan, SIL Open Font License 1.1.
+     See public/fonts/LICENSE.txt. Applied to numerals only - the letterforms
+     in a seven-segment face are not readable. */
+  font-family: "DSEG7 Classic";
+  src: url("/fonts/DSEG7Classic-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DSEG7 Classic";
+  src: url("/fonts/DSEG7Classic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --text: #f5f2ea;
   --muted: #948b7c;

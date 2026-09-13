@@ -40,15 +40,20 @@ export function getStatus(now = new Date()) {
   return { open: false, until: next ? next.start : null };
 }
 
+// Returns the numerals and the am/pm separately: DSEG7 is a seven-segment face,
+// so only the digits should be set in it. Its letters are unreadable.
 export function formatTime(hhmm) {
   const [h, m] = hhmm.split(":").map(Number);
   const suffix = h < 12 || h === 24 ? "am" : "pm";
   const hour = h % 12 === 0 ? 12 : h % 12;
-  return m === 0 ? `${hour}${suffix}` : `${hour}:${String(m).padStart(2, "0")}${suffix}`;
+  // Always show the minutes: a seven-segment face reads as a clock, and a bare
+  // "3" next to "6:30" looks broken.
+  const digits = `${hour}:${String(m).padStart(2, "0")}`;
+  return { digits, suffix };
 }
 
 export function formatShift(shift) {
-  return `${formatTime(shift.open)} - ${formatTime(shift.close)}`;
+  return { open: formatTime(shift.open), close: formatTime(shift.close) };
 }
 
 // "in 2h 15m" style countdown to the next open/close boundary.

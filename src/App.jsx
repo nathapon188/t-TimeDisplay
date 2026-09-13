@@ -1,9 +1,19 @@
 import { useEffect, useState } from "react";
 import { venue } from "./hours";
-import { formatShift, formatUntil, getStatus, groupDays } from "./schedule";
+import { formatShift, formatTime, formatUntil, getStatus, groupDays } from "./schedule";
 import { useFullscreen } from "./useFullscreen";
 import { useWakeLock } from "./useWakeLock";
 import "./App.css";
+
+// Digits in the seven-segment face, am/pm in the normal one.
+function Time({ value }) {
+  return (
+    <span className="time">
+      <span className="digits">{value.digits}</span>
+      <span className="suffix">{value.suffix}</span>
+    </span>
+  );
+}
 
 export default function App() {
   const [now, setNow] = useState(() => new Date());
@@ -48,11 +58,13 @@ export default function App() {
       <section className="status">
         <span className="badge">{status.open ? "Open now" : "Closed"}</span>
         <div className="clock">
-          {now.toLocaleTimeString("en-AU", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-          })}
+          <Time
+            value={formatTime(
+              `${String(now.getHours()).padStart(2, "0")}:${String(
+                now.getMinutes()
+              ).padStart(2, "0")}`
+            )}
+          />
         </div>
         <p className="next">
           {status.until
@@ -74,11 +86,16 @@ export default function App() {
               {group.shifts.length === 0 ? (
                 <span className="shift">Closed</span>
               ) : (
-                group.shifts.map((shift) => (
-                  <span className="shift" key={shift.open}>
-                    {formatShift(shift)}
-                  </span>
-                ))
+                group.shifts.map((shift) => {
+                  const { open, close } = formatShift(shift);
+                  return (
+                    <span className="shift" key={shift.open}>
+                      <Time value={open} />
+                      <span className="dash">-</span>
+                      <Time value={close} />
+                    </span>
+                  );
+                })
               )}
             </span>
           </li>
